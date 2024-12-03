@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\Category;
 use Exception;
 
 class CategoryController extends Controller
@@ -12,9 +12,9 @@ class CategoryController extends Controller
     {
         try {
             $categories = Category::all();
-            return response()->json($categories);
+            return response()->json($categories, 200);
         } catch (Exception $e) {
-            return response()->json(['message' => 'Failed to fetch categories', 'error' => $e->getMessage()]);
+            return response()->json(['message' => 'Failed to fetch categories', 'error' => $e->getMessage()], 500);
         }
     }
 
@@ -22,9 +22,9 @@ class CategoryController extends Controller
     {
         try {
             $category = Category::findOrFail($id);
-            return response()->json($category);
+            return response()->json($category, 200);
         } catch (Exception $e) {
-            return response()->json(['message' => 'Category not found', 'error' => $e->getMessage()]);
+            return response()->json(['message' => 'Category not found', 'error' => $e->getMessage()], 404);
         }
     }
 
@@ -37,9 +37,9 @@ class CategoryController extends Controller
             ]);
 
             $category = Category::create($request->only(['code', 'name']));
-            return response()->json(['message' => 'Category created successfully', 'category' => $category]);
+            return response()->json(['message' => 'Category created successfully', 'category' => $category], 201);
         } catch (Exception $e) {
-            return response()->json(['message' => 'Failed to create category', 'error' => $e->getMessage()]);
+            return response()->json(['message' => 'Failed to create category', 'error' => $e->getMessage()], 500);
         }
     }
 
@@ -54,9 +54,9 @@ class CategoryController extends Controller
             ]);
 
             $category->update($request->only(['code', 'name']));
-            return response()->json(['message' => 'Category updated successfully', 'category' => $category]);
+            return response()->json(['message' => 'Category updated successfully', 'category' => $category], 200);
         } catch (Exception $e) {
-            return response()->json(['message' => 'Failed to update category', 'error' => $e->getMessage()]);
+            return response()->json(['message' => 'Failed to update category', 'error' => $e->getMessage()], 500);
         }
     }
 
@@ -65,9 +65,9 @@ class CategoryController extends Controller
         try {
             $category = Category::findOrFail($id);
             $category->delete();
-            return response()->json(['message' => 'Category deleted successfully']);
+            return response()->json(['message' => 'Category deleted successfully'], 200);
         } catch (Exception $e) {
-            return response()->json(['message' => 'Failed to delete category', 'error' => $e->getMessage()]);
+            return response()->json(['message' => 'Failed to delete category', 'error' => $e->getMessage()], 500);
         }
     }
 }

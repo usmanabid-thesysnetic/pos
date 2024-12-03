@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
 use Illuminate\Http\Request;
+use App\Models\Company;
 use Exception;
 
 class CompanyController extends Controller
@@ -12,7 +12,7 @@ class CompanyController extends Controller
     {
         try {
             $companies = Company::all();
-            return response()->json($companies);
+            return response()->json($companies, 200);
         } catch (Exception $e) {
             return response()->json(['message' => 'Error fetching companies', 'error' => $e->getMessage()], 500);
         }
@@ -22,7 +22,7 @@ class CompanyController extends Controller
     {
         try {
             $company = Company::findOrFail($id);
-            return response()->json($company);
+            return response()->json($company, 200);
         } catch (Exception $e) {
             return response()->json(['message' => 'Company not found', 'error' => $e->getMessage()], 404);
         }
@@ -62,7 +62,7 @@ class CompanyController extends Controller
                 'description' => $request->description ?? $company->description,
             ]);
 
-            return response()->json(['message' => 'Company updated successfully', 'company' => $company]);
+            return response()->json(['message' => 'Company updated successfully', 'company' => $company], 200);
         } catch (Exception $e) {
             return response()->json(['message' => 'Error updating company', 'error' => $e->getMessage()], 500);
         }
@@ -74,7 +74,7 @@ class CompanyController extends Controller
             $company = Company::findOrFail($id);
             $company->delete();
 
-            return response()->json(['message' => 'Company deleted successfully']);
+            return response()->json(['message' => 'Company deleted successfully'], 200);
         } catch (Exception $e) {
             return response()->json(['message' => 'Error deleting company', 'error' => $e->getMessage()], 500);
         }

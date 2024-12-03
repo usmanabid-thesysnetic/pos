@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SupplierController;
 
 use App\Http\Middleware\EnsureTokenIsValid;
 
@@ -33,5 +34,13 @@ Route::middleware(EnsureTokenIsValid::class)->group(function () {
         Route::post('/', [CategoryController::class, 'store']);
         Route::put('/{id}', [CategoryController::class, 'update']);
         Route::delete('/{id}', [CategoryController::class, 'destroy']);
+    });
+    
+    Route::prefix('suppliers')->group(function () {
+        Route::get('/', [SupplierController::class, 'index']);
+        Route::get('/{id}', [SupplierController::class, 'show']);
+        Route::post('/', [SupplierController::class, 'store']);
+        Route::put('/{id}', [SupplierController::class, 'update']);
+        Route::delete('/{id}', [SupplierController::class, 'destroy']);
     });
 });
