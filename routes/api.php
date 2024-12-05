@@ -7,7 +7,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PurchaseController;
-
+use App\Http\Controllers\ProductController;
 use App\Http\Middleware\EnsureTokenIsValid;
 
 Route::post('/users/login', [UserController::class, 'login']);
@@ -51,5 +51,13 @@ Route::middleware(EnsureTokenIsValid::class)->group(function () {
         Route::post('/', [PurchaseController::class, 'store']);
         Route::put('/{id}', [PurchaseController::class, 'update']);
         Route::delete('/{id}', [PurchaseController::class, 'destroy']);
+    });
+
+    Route::prefix('products')->group(function () {
+        Route::get('/', [ProductController::class, 'index']);
+        Route::get('/{id}', [ProductController::class, 'show']);
+        Route::post('/', [ProductController::class, 'store']);
+        Route::put('/{id}', [ProductController::class, 'update']);
+        Route::delete('/{id}', [ProductController::class, 'destroy']);
     });
 });
