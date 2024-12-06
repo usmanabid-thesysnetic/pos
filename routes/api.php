@@ -2,12 +2,15 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CustomerController;
+
 use App\Http\Middleware\EnsureTokenIsValid;
 
 Route::post('/users/login', [UserController::class, 'login']);
@@ -59,5 +62,13 @@ Route::middleware(EnsureTokenIsValid::class)->group(function () {
         Route::post('/', [ProductController::class, 'store']);
         Route::put('/{id}', [ProductController::class, 'update']);
         Route::delete('/{id}', [ProductController::class, 'destroy']);
+    });
+
+    Route::prefix('customers')->group(function () {
+        Route::get('/', [CustomerController::class, 'index']);
+        Route::get('/{id}', [CustomerController::class, 'show']);
+        Route::post('/', [CustomerController::class, 'store']);
+        Route::put('/{id}', [CustomerController::class, 'update']);
+        Route::delete('/{id}', [CustomerController::class, 'destroy']);
     });
 });
