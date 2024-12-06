@@ -16,10 +16,10 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('customer_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('ref_no')->unique();
-            $table->decimal('price', 15, 2);
             $table->decimal('total', 15, 2);
+            $table->decimal('paid', 15, 2);
+            $table->decimal('balance', 15, 2);
             $table->string('status');
-            $table->decimal('remaining_amount', 15, 2);
             $table->date('date');
             $table->timestamps();
         });

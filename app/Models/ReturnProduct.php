@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReturnProduct extends Model
 {
-    protected $fillable = ['return_id', 'product_id', 'discount'];
+    protected $fillable = ['return_id', 'product_id', 'quantity', 'discount'];
 
     public function return()
     {
