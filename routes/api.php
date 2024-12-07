@@ -10,6 +10,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\SaleController;
 
 use App\Http\Middleware\EnsureTokenIsValid;
 
@@ -70,5 +71,11 @@ Route::middleware(EnsureTokenIsValid::class)->group(function () {
         Route::post('/', [CustomerController::class, 'store']);
         Route::put('/{id}', [CustomerController::class, 'update']);
         Route::delete('/{id}', [CustomerController::class, 'destroy']);
+    });
+
+    Route::prefix('sales')->group(function () {
+        Route::post('/', [SaleController::class, 'createSale']);
+        Route::put('/{id}/payment', [SaleController::class, 'updatePayment']);
+        Route::get('/', [SaleController::class, 'getAllSales']);
     });
 });
